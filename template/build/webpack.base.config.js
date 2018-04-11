@@ -2,18 +2,19 @@ function resolve (dir) {
     return path.join(__dirname, '..', dir)
 }
 
+const env = process.env.NODE_ENV;
 
 const path = require('path');
+const webpack = require("webpack");
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
-// const config = require('./config');
-
-// const entry = resolve('src/main.js');
+let config = require("../config");
 
 let HtMLPlugins = [];
 let entries = {};
+
+let plugins = [];
 
 const router = require("../config/router");
 
@@ -37,9 +38,12 @@ Object.keys(router).forEach((pageDir)=>{
         }
     }
 
-    HtMLPlugins.push(new HTMLWebpackPlugin({
+    plugins.push(new HTMLWebpackPlugin({
         filename:`${finalConfig.filename}.html`,
         template:"index.html",
+        inject: true,
+        chunksSortMode: 'dependency',
+        chunks: [finalConfig.filename,'vendor','manifest'],
         // TODO 提取公共模块
         // chunks:[pageDir,'commons'],
     }));
@@ -48,16 +52,33 @@ Object.keys(router).forEach((pageDir)=>{
 });
 
 
-let plugins = [
-    new CleanWebpackPlugin(["../dist"]),
-];
-
+plugins = plugins.concat([
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        minChunks: function (module, count) {
+            // any required modules inside node_modules are extracted to vendor
+            return (
+                module.resource &&
+                    /\.js$/.test(module.resource) &&
+                    module.resource.indexOf(
+                    path.join(__dirname, '../node_modules')
+                ) === 0
+            )
+        }
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'manifest',
+        chunks: ['vendor']
+    }),
+]);
 
 module.exports = {
     entry:entries,
     output:{
-        filename:"js/[name].bundle.[hash].js",
-        path:path.resolve(__dirname,'../dist'),
+        path:config[env].assetsRoot,
+        filename:path.posix.join(config[env].assetsSubDirectory,'js/[name].[chunkhash].js'),
+        publicPath:config[env].assetsPublicPath,
+        chunkFilename:path.posix.join(config[env].assetsSubDirectory,'js/[id].[chunkhash].js'),
     },
     resolve: {
         extensions: ['.js', '.vue','.json'],

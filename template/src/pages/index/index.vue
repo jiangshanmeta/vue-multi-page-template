@@ -1,7 +1,7 @@
 <template>
     <section>
         this is index index
-
+        {{counter}}
     </section>
 </template>
 
