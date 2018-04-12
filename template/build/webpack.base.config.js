@@ -18,34 +18,35 @@ let plugins = [];
 
 const router = require("../config/router");
 
+const routerDefault = {
+    template:"index.html",
+}
+
+// router 可以配置项 entry template
 Object.keys(router).forEach((pageDir)=>{
     let itemConfig = router[pageDir];
 
-    let finalConfig;
-
     if(typeof itemConfig === 'object'){
-        if(itemConfig.hasOwnProperty('entry')){
-            // TODO 配置化 pages目录
-            itemConfig.entry = resolve('src/pages/' + itemConfig.entry);
-        }else{
-            itemConfig.entry = resolve('src/pages/' + pageDir + '.js');
+        if(!itemConfig.entry){
+            itemConfig.entry = pageDir;
         }
-        finalConfig = Object.assign({},{filename:pageDir},itemConfig);
     }else{
-        finalConfig = {
-            filename:pageDir,
-            entry:resolve('src/pages/' + itemConfig),
+        itemConfig = {
+            entry:itemConfig,
         }
     }
 
+    itemConfig.filename = pageDir;
+    itemConfig.entry = resolve('src/pages/' + itemConfig.entry);
+
+    const finalConfig = Object.assign({},routerDefault,itemConfig);
+
     plugins.push(new HTMLWebpackPlugin({
         filename:`${finalConfig.filename}.html`,
-        template:"index.html",
+        template:finalConfig.template,
         inject: true,
         chunksSortMode: 'dependency',
         chunks: [finalConfig.filename,'vendor','manifest'],
-        // TODO 提取公共模块
-        // chunks:[pageDir,'commons'],
     }));
 
     entries[finalConfig.filename] = finalConfig.entry;
