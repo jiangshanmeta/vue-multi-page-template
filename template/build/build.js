@@ -7,7 +7,7 @@ let webpack = require("webpack");
 let config = require("../config");
 let webpackConfig = require("./webpack.prod.config");
 
-rm(path.join(config.prod.assetsRoot,config.prod.assetsSubDirectory),(e)=>{
+rm(config.prod.assetsRoot,(e)=>{
     if(e){
         throw err;
     }
