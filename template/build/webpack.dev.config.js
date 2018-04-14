@@ -12,6 +12,7 @@ Object.keys(webpackBaseConfig.entry).forEach(function (name) {
 
 
 module.exports = merge(webpackBaseConfig,{
+    devtool: '#cheap-module-eval-source-map',
     plugins:[
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),

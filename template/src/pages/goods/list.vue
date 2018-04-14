@@ -1,6 +1,8 @@
 <template>
     <section>
         this is book list
+
+        
     </section>
 </template>
 
@@ -9,3 +11,4 @@ export default{
 
 }
 </script>
+

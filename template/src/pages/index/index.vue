@@ -1,9 +1,11 @@
 <template>
-    <section>
+    <section class="red">
         this is index index
         {{counter}}
         ppppqqqq
         0000
+
+        <img src="/static/img/us.jpg">1
     </section>
 </template>
 
@@ -15,6 +17,7 @@ export default{
         };
     },
     created(){
+        console.log(backendUrl)
         setInterval(()=>{
             this.counter++;
         },1000)
@@ -22,3 +25,10 @@ export default{
 }
 
 </script>
+
+<style scoped>
+.red{
+    color:red;
+}
+
+</style>
