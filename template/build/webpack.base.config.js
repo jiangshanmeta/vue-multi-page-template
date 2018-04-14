@@ -77,9 +77,8 @@ module.exports = {
     entry:entries,
     output:{
         path:config[env].assetsRoot,
-        filename:path.posix.join(config[env].assetsSubDirectory,'js/[name].[chunkhash].js'),
+        filename: '[name].js',
         publicPath:config[env].assetsPublicPath,
-        chunkFilename:path.posix.join(config[env].assetsSubDirectory,'js/[id].[chunkhash].js'),
     },
     resolve: {
         extensions: ['.js', '.vue','.json'],

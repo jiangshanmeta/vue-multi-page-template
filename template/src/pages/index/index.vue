@@ -2,6 +2,8 @@
     <section>
         this is index index
         {{counter}}
+        ppppqqqq
+        0000
     </section>
 </template>
 
@@ -15,7 +17,7 @@ export default{
     created(){
         setInterval(()=>{
             this.counter++;
-        },200)
+        },1000)
     }
 }
 
