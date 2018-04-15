@@ -1,13 +1,5 @@
-import Vue from 'vue'
+import genVMByAppComponent from '@/main.js';
 
 import App from './App'
 
-new Vue({
-    el: '#app',
-    render(h){
-        return h('App');
-    },
-    components:{
-        App,
-    },
-})
+genVMByAppComponent(App);
