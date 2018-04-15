@@ -4,12 +4,17 @@
 
         <div class="hover-img"></div>
 
+        <a :href="BASEPATH + 'index.html'">回到主页</a>
     </section>
 </template>
 
 <script>
 export default{
-
+    data(){
+        return {
+            BASEPATH:BASEPATH,
+        }
+    },
 }
 </script>
 

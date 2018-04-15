@@ -5,8 +5,12 @@
         ppppqqqq
         0000
 
-        <!-- <img src="/static/img/us.jpg"> -->
+        <img :src="BASEPATH + 'static/img/us.jpg'">
         1
+
+        <a :href="BASEPATH + 'goods/list.html'">
+            跳转页面
+        </a>
     </section>
 </template>
 
@@ -15,6 +19,7 @@ export default{
     data(){
         return {
             counter:0,
+            BASEPATH:BASEPATH,
         };
     },
     created(){

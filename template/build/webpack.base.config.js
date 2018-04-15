@@ -19,6 +19,7 @@ Object.keys(defineMergeConfig).forEach((key)=>{
     defineMergeConfig[key] = JSON.stringify(defineMergeConfig[key]);
 });
 
+defineMergeConfig.BASEPATH = JSON.stringify(config[env].assetsPublicPath);
 
 let HtMLPlugins = [];
 let entries = {};
