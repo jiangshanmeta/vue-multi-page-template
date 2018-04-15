@@ -5,7 +5,7 @@ module.exports = {
     prod:{
         assetsRoot:path.resolve(__dirname,'../dist'),
         assetsSubDirectory:'static',
-        assetsPublicPath:'/',
+        assetsPublicPath:'/test/',
     },
     dev:{
         assetsRoot:path.resolve(__dirname,'../dist'),

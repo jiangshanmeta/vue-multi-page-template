@@ -5,7 +5,8 @@
         ppppqqqq
         0000
 
-        <img src="/static/img/us.jpg">1
+        <!-- <img src="/static/img/us.jpg"> -->
+        1
     </section>
 </template>
 
