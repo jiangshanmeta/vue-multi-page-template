@@ -50,11 +50,10 @@ Object.keys(router).forEach((pageDir)=>{
         }
     }
 
-    // itemConfig.filename = pageDir;
+
     if(!itemConfig.filename){
         itemConfig.filename = pageDir;
     }
-
 
     itemConfig.entry = resolve('src/pages/' + itemConfig.entry);
 
