@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import VueConfig from "@/widget/vue-config";
+import 'babel-polyfill';
+import "@/assets/css/reset.css";
 
 Vue.use(VueConfig);
 
