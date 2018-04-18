@@ -1,8 +1,13 @@
-module.exports = {
-    "index/index":{
+module.exports = [
+    {
         filename:"index",
         template:"src/pages/index/index/index.html",
-        entry:"index/index/main.js"
+        entry:"index/index/main.js",
+        title:"首页",
     },
-    "goods/list":"goods/list/main.js"
-}
+    {
+        filename:"goods/list",
+        entry:"goods/list/main.js",
+    }
+
+];

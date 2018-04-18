@@ -12,5 +12,5 @@ module.exports = {
         assetsSubDirectory:'static',
         assetsPublicPath:'/',
         port:8080,
-    }
+    },
 }

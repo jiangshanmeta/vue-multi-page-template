@@ -33,49 +33,38 @@ let plugins = [
 
 const router = require("../config/router");
 
-const routerDefault = {
-    template:"index.html",
-}
+// const routerDefault = {
+//     template:"index.html",
+// }
+
+const routerDefault = require("../config/html");
 
 // router 可以配置项 entry template
-Object.keys(router).forEach((pageDir)=>{
-    let itemConfig = router[pageDir];
 
-    if(typeof itemConfig === 'object'){
-        if(!itemConfig.entry){
-            itemConfig.entry = pageDir;
-        }
-    }else{
-        itemConfig = {
-            entry:itemConfig,
-        }
-    }
+router.forEach((routerItem)=>{
+    const finalConfig = Object.assign({},routerDefault,routerItem);
 
+    // 入口路径修改为绝对路径
+    finalConfig.entry = resolve('src/pages/' + finalConfig.entry);
 
-    if(!itemConfig.filename){
-        itemConfig.filename = pageDir;
-    }
-
-    itemConfig.entry = resolve('src/pages/' + itemConfig.entry);
-
-    const finalConfig = Object.assign({},routerDefault,itemConfig);
+    // console.log(finalConfig.title)
 
     plugins.push(new HTMLWebpackPlugin({
         filename:`${finalConfig.filename}.html`,
         template:finalConfig.template,
         inject: true,
+        title:finalConfig.title,
         minify: {
             removeComments: true,
             collapseWhitespace: true,
             removeAttributeQuotes: true
         },
         chunksSortMode: 'dependency',
-        chunks: [finalConfig.filename,'vendor','manifest'],
+        chunks: [finalConfig.filename,'vendor','manifest'].concat(finalConfig.chunks || []),
     }));
 
     entries[finalConfig.filename] = finalConfig.entry;
 });
-
 
 plugins = plugins.concat([
     new webpack.optimize.CommonsChunkPlugin({
