@@ -17,6 +17,7 @@ let webpackFinalConfig = merge(webpackBaseConfig,{
         chunkFilename:path.posix.join(config[env].assetsSubDirectory,'js/[id].[chunkhash].js'),
     },
     plugins:[
+        new webpack.HashedModuleIdsPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false
