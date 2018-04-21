@@ -11,7 +11,7 @@ let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 let CopyWebpackPlugin = require('copy-webpack-plugin');
 
-module.exports = merge(webpackBaseConfig,{
+let webpackFinalConfig = merge(webpackBaseConfig,{
     output:{
         filename:path.posix.join(config[env].assetsSubDirectory,'js/[name].[chunkhash].js'),
         chunkFilename:path.posix.join(config[env].assetsSubDirectory,'js/[id].[chunkhash].js'),
@@ -44,4 +44,12 @@ module.exports = merge(webpackBaseConfig,{
         ])
 
     ],
-})
+});
+
+if (config[env].bundleAnalyzerReport) {
+    let BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+    webpackFinalConfig.plugins.push(new BundleAnalyzerPlugin())
+}
+
+
+module.exports = webpackFinalConfig;
