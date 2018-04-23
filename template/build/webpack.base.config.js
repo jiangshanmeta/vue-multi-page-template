@@ -66,25 +66,11 @@ router.forEach((routerItem)=>{
     entries[finalConfig.filename] = finalConfig.entry;
 });
 
-plugins = plugins.concat([
-    new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks: function (module, count) {
-            // any required modules inside node_modules are extracted to vendor
-            return (
-                module.resource &&
-                    /\.js$/.test(module.resource) &&
-                    module.resource.indexOf(
-                    path.join(__dirname, '../node_modules')
-                ) === 0
-            )
-        }
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-        name: 'manifest',
-        chunks: ['vendor']
-    }),
-]);
+// plugins = plugins.concat([
+
+// ]);
+
+// const vueLoaderConfig = require('./vue-loader.conf');
 
 module.exports = {
     entry:entries,
@@ -107,16 +93,9 @@ module.exports = {
                 loader: 'raw-loader',
             },
             {
-                test:/\.css$/,
-                loader:[
-                    'style-loader',
-                    'css-loader',
-                ]
-            },
-
-            {
                 test:/\.vue$/,
                 loader:"vue-loader",
+                options:require('./vue-loader.conf'),
             },
             {
                 test: /\.js$/,
