@@ -8,12 +8,9 @@ let config = require("../config");
 const env = process.env.NODE_ENV;
 
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
-let OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 let CopyWebpackPlugin = require('copy-webpack-plugin');
 
 let utils = require('./utils');
-
-// console.log(config[env].sourceMap)
 
 let webpackFinalConfig = merge(webpackBaseConfig,{
     module: {
@@ -22,34 +19,34 @@ let webpackFinalConfig = merge(webpackBaseConfig,{
             extract: true
         })
     },
-    devtool: config[env].sourceMap ? '#source-map' : false,
+    devtool:config[env].sourceMap ? 'source-map' : false,
     output:{
         filename:path.posix.join(config[env].assetsSubDirectory,'js/[name].[chunkhash].js'),
         chunkFilename:path.posix.join(config[env].assetsSubDirectory,'js/[id].[chunkhash].js'),
     },
     plugins:[
-    new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks: function (module, count) {
-            // any required modules inside node_modules are extracted to vendor
-            return (
-                module.resource &&
-                    /\.js$/.test(module.resource) &&
-                    module.resource.indexOf(
-                    path.join(__dirname, '../node_modules')
-                ) === 0
-            ) || (
-                // 提取公共css
-                module.resource &&  /\.css$/.test(module.resource) && count>1
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            minChunks: function (module, count) {
+                // any required modules inside node_modules are extracted to vendor
+                return (
+                    module.resource &&
+                        /\.js$/.test(module.resource) &&
+                        module.resource.indexOf(
+                        path.join(__dirname, '../node_modules')
+                    ) === 0
+                ) || (
+                    // 提取公共css
+                    module.resource &&  /\.css$/.test(module.resource) && count>1
 
-            )
-        }
-    }),
+                )
+            }
+        }),
 
-    new webpack.optimize.CommonsChunkPlugin({
-        name: 'manifest',
-        chunks: ['vendor']
-    }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'manifest',
+            chunks: ['vendor']
+        }),
 
     
         new webpack.HashedModuleIdsPlugin(),
@@ -63,13 +60,7 @@ let webpackFinalConfig = merge(webpackBaseConfig,{
         new ExtractTextPlugin({
             filename:path.posix.join(config[env].assetsSubDirectory,'css/[id].[contenthash].css'),
         }),
-        // Compress extracted CSS. We are using this plugin so that possible
-        // duplicated CSS from different components can be deduped.
-        new OptimizeCSSPlugin({
-            cssProcessorOptions: {
-                safe: true
-            }
-        }),
+
         // copy custom static assets
         new CopyWebpackPlugin([
             {

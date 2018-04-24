@@ -66,11 +66,6 @@ router.forEach((routerItem)=>{
     entries[finalConfig.filename] = finalConfig.entry;
 });
 
-// plugins = plugins.concat([
-
-// ]);
-
-// const vueLoaderConfig = require('./vue-loader.conf');
 
 module.exports = {
     entry:entries,
