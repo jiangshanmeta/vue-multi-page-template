@@ -27,3 +27,17 @@
 ```  
 
 这样webpack就会找到 src/assets/img/1.jpg 了
+
+## route
+
+类似与vue-router的参数设计，我在 src/widget/vue-url.js 中提供一个插件，使用这个插件后就可以通过```$route```访问到路由信息对象、通过```$router```跳转页面：
+
+```javascript
+this.$router.push({
+    path:"goods/list",  // .html可写可不写
+    query:{
+        a:1,
+        b:["c","d"],
+    },                  // query参数
+});
+```
