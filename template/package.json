@@ -47,6 +47,8 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "locutus": "^2.0.9",
+    "qs": "^6.5.1",
     "vue": "^2.5.16"
   }
 }

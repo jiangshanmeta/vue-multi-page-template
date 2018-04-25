@@ -6,9 +6,9 @@
 
         <img :src="BASEPATH + 'static/img/us.jpg'">
 
-        <a :href="BASEPATH + 'goods/list.html'">
+        <button @click="gotoList">
             跳转页面
-        </a>
+        </button>
     </section>
 </template>
 
@@ -20,11 +20,24 @@ export default{
         };
     },
     created(){
-        console.log(backendUrl)
         setInterval(()=>{
             this.counter++;
         },1000)
+
+        console.log(this.$route)
+    },
+    methods:{
+        gotoList(){
+            this.$router.push({
+                path:"goods/list",
+                query:{
+                    a:1,
+                    b:["c","d"],
+                }
+            });
+        },
     }
+
 }
 
 </script>

@@ -1,8 +1,10 @@
 import Vue from 'vue';
+import vueUrl from "@/widget/vue-url";
 import VueConfig from "@/widget/vue-config";
 import 'babel-polyfill';
 import "@/assets/css/reset.css";
 
+Vue.use(vueUrl);
 Vue.use(VueConfig);
 
 Vue.prototype.BASEPATH = BASEPATH;
