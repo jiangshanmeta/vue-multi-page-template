@@ -9,7 +9,7 @@ let webpackConfig = require("./webpack.prod.config");
 
 rm(config.prod.assetsRoot,(e)=>{
     if(e){
-        throw err;
+        throw e;
     }
 
     webpack(webpackConfig,(e,stats)=>{
